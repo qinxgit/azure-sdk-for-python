@@ -6,7 +6,7 @@
 from collections import namedtuple
 
 DecryptResult = namedtuple("DecryptResult", ["decrypted_bytes"])
-EncryptResult = namedtuple("EncryptResult", ["key_id", "algorithm", "ciphertext", "authentication_tag"])
+EncryptResult = namedtuple("EncryptResult", ["key_id", "algorithm", "ciphertext", "authentication_tag", "iv", "tag"])
 SignResult = namedtuple("SignResult", ["key_id", "algorithm", "signature"])
 VerifyResult = namedtuple("VerifyResult", ["result"])
 UnwrapKeyResult = namedtuple("UnwrapKeyResult", ["unwrapped_bytes"])

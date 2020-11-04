@@ -183,8 +183,17 @@ class CryptographyClient(KeyVaultClientBase):
                 algorithm=algorithm,
                 value=plaintext,
                 **kwargs
-            ).result
-        return EncryptResult(key_id=self.key_id, algorithm=algorithm, ciphertext=result, authentication_tag=None)
+            )
+
+            if hasattr(result, 'tag'):
+                tag = result.tag
+            else:
+                tag = None
+            if hasattr(result, "iv"):
+                iv = result.iv
+            else:
+                iv = None
+        return EncryptResult(key_id=self.key_id, algorithm=algorithm, ciphertext=result.result, authentication_tag=None, iv = iv, tag = tag)
 
     @distributed_trace
     def decrypt(self, algorithm, ciphertext, **kwargs):
